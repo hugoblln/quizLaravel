@@ -25,21 +25,12 @@
 </div>
 
 <div class="flex flex-wrap justify-center gap-6 mt-12 px-4">
-    <a href="#" class="bg-white/30 backdrop-blur-md text-gray-800 font-semibold px-6 py-3 rounded-xl shadow-md border border-white/20 hover:bg-white/40 hover:scale-105 transform transition">
-        Thème 1
+    @foreach ($themes as $theme)
+        <a href="{{route('theme.difficulty', ['themeId' => $theme['id'], 'themeName' => $theme['name']])}}" class="bg-white/30 backdrop-blur-md text-gray-800 font-semibold px-6 py-3 rounded-xl shadow-md border border-white/20 hover:bg-white/40 hover:scale-105 transform transition">
+        {{$theme['name']}}
     </a>
-    <a href="#" class="bg-white/30 backdrop-blur-md text-gray-800 font-semibold px-6 py-3 rounded-xl shadow-md border border-white/20 hover:bg-white/40 hover:scale-105 transform transition">
-        Thème 2
-    </a>
-    <a href="#" class="bg-white/30 backdrop-blur-md text-gray-800 font-semibold px-6 py-3 rounded-xl shadow-md border border-white/20 hover:bg-white/40 hover:scale-105 transform transition">
-        Thème 3
-    </a>
-    <a href="#" class="bg-white/30 backdrop-blur-md text-gray-800 font-semibold px-6 py-3 rounded-xl shadow-md border border-white/20 hover:bg-white/40 hover:scale-105 transform transition">
-        Thème 4
-    </a>
-    <a href="#" class="bg-white/30 backdrop-blur-md text-gray-800 font-semibold px-6 py-3 rounded-xl shadow-md border border-white/20 hover:bg-white/40 hover:scale-105 transform transition">
-        Thème 5
-    </a>
+    @endforeach
+    
 </div>
 
 
