@@ -4,7 +4,7 @@
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-4xl font-extrabold mb-8 text-center text-gray-900">Quiz: {{ $questions[0]['category'] ?? 'Thème' }}</h1>
 
-    <form action="#" method="POST" class="space-y-6">
+    <form action="{{route('submit')}}" method="POST" class="space-y-6">
         @csrf
         @foreach ($questions as $index => $question)
             <div class="bg-white/30 backdrop-blur-md rounded-xl p-6 shadow-lg border border-white/20">
@@ -20,7 +20,7 @@
                 <div class="space-y-2">
                     @foreach ($answers as $answer)
                         <label class="flex items-center space-x-3 cursor-pointer bg-white/20 hover:bg-white/30 p-2 rounded-lg transition">
-                            <input type="radio" name="question_{{ $index }}" value="{{ $answer }}" class="accent-blue-600">
+                            <input type="radio" name="{{ $index }}" value="{{ $answer }}" class="accent-blue-600">
                             <span>{!! $answer !!}</span>
                         </label>
                     @endforeach
@@ -34,5 +34,7 @@
             </button>
         </div>
     </form>
+    <p>URL générée par route('submit') : {{ route('submit') }}</p>
+
 </div>
 @endsection

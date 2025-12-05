@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+class QuizController extends Controller
+{
+        public function questions(int $themeId, string $difficulty)
+    {
+        $response = Http::get('https://opentdb.com/api.php',
+        [
+              'amount' => 10,
+              'category' => $themeId,
+              'difficulty' => $difficulty
+        ]);
+
+        $questions = $response->json()['results'];
+
+        session(['quiz_questions' => $questions]);
+
+        return view('Questions/questions', compact('questions'));
+    }
+
+        public function themes()
+    {
+        $response = Http::get('https://opentdb.com/api_category.php');
+
+        $themes = $response->json()['trivia_categories'];
+
+        return view('welcome', compact('themes'));
+    }
+
+       public function submit(Request $request)
+    {
+        $answers = $request->except('_token');
+
+        $questions = session('quiz_questions');
+
+        var_dump($answers);
+
+
+        $score = 0;
+
+        foreach($answers as $index => $answer)
+        {
+            if($answer == $questions[$index]['correct_answer'])
+            {
+                $score++;
+            }
+        }
+
+        var_dump($score);
+
+        return redirect()->route('result');
+    }
+}

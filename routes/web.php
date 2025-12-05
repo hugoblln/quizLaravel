@@ -4,10 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuizController;
 
-
-Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/', [QuizController::class, 'themes'])->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -26,6 +25,8 @@ Route::get('/theme/{themeId}', function($themeId, Request $request){
     return view('themes/chooseDifficulty', ['themeId' => $themeId, 'themeName' => $themeName]);
 })->name('theme.difficulty');
 
-Route::get('/questions/{themeId}/{difficulty}', [QuestionController::class, 'index'])->name('question');
+Route::get('/questions/{themeId}/{difficulty}', [QuizController::class, 'questions'])->name('question');
+
+Route::post('/submit', [QuizController::class, 'submit'])->name('submit');
 
 require __DIR__.'/auth.php';
