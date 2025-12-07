@@ -18,7 +18,7 @@ class QuizController extends Controller
 
         $questions = $response->json()['results'];
 
-        session(['quiz_questions' => $questions]);
+        session(['quiz_questions' => $questions, 'themeId' => $themeId, 'difficulty' => $difficulty]);
 
         return view('Questions/questions', compact('questions'));
     }
@@ -38,6 +38,10 @@ class QuizController extends Controller
 
         $questions = session('quiz_questions');
 
+        $themeId = session('themeId');
+
+        $difficulty = session('difficulty');
+
         var_dump($answers);
 
 
@@ -53,6 +57,17 @@ class QuizController extends Controller
 
         var_dump($score);
 
-        return redirect()->route('result');
+        return redirect()->route('result', ['themeId' => $themeId, 'difficulty' => $difficulty])->with(['score' => $score, 'questions' => $questions, 'answers' => $answers ]);
+    }
+
+    public function result(int $themeId, string $difficulty)
+    {
+        $score = session('score');
+
+        $questions = session('questions');
+
+        $answers = session('answers');
+
+        return view('Result/result', compact('score', 'questions', 'answers'));
     }
 }

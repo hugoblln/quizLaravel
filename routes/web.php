@@ -29,4 +29,6 @@ Route::get('/questions/{themeId}/{difficulty}', [QuizController::class, 'questio
 
 Route::post('/submit', [QuizController::class, 'submit'])->name('submit');
 
+Route::get('/questions/{themeId}/{difficulty}/result', [QuizController::class, 'result'])->name('result');
+
 require __DIR__.'/auth.php';
