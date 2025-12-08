@@ -18,9 +18,11 @@ class QuizController extends Controller
 
         $questions = $response->json()['results'];
 
+        $themeName = session('themeName');
+
         session(['quiz_questions' => $questions, 'themeId' => $themeId, 'difficulty' => $difficulty]);
 
-        return view('Questions/questions', compact('questions'));
+        return view('Questions/questions', compact('questions', 'themeName', 'difficulty'));
     }
 
         public function themes()
@@ -41,6 +43,7 @@ class QuizController extends Controller
         $themeId = session('themeId');
 
         $difficulty = session('difficulty');
+
 
         var_dump($answers);
 
@@ -68,6 +71,8 @@ class QuizController extends Controller
 
         $answers = session('answers');
 
-        return view('Result/result', compact('score', 'questions', 'answers'));
+        $themeName = session('themeName');
+
+        return view('Result/result', compact('score', 'questions', 'answers', 'themeName', 'difficulty'));
     }
 }

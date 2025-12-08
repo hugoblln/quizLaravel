@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/theme/{themeId}', function($themeId, Request $request){
 
     $themeName = $request->query('themeName');
+    
+    session(['themeName' => $themeName]);
 
     return view('themes/chooseDifficulty', ['themeId' => $themeId, 'themeName' => $themeName]);
 })->name('theme.difficulty');

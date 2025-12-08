@@ -3,9 +3,12 @@
 @section('content')
 <div class="container mx-auto px-4 py-10">
 
-    <h1 class="text-3xl font-extrabold mb-6 text-center text-gray-900">
-        Score : <span class="text-blue-700">{{ $score }}</span>
-    </h1>
+        <h1 class="text-4xl font-extrabold mb-8 text-center text-gray-900">Quiz: {{ $themeName }}</h1>
+        <h2 class="text-4xl font-extrabold mb-8 text-center text-gray-900">Difficulté: {{ $difficulty }}</h2>
+
+    <h3 class="text-3xl font-extrabold mb-6 text-center text-gray-900">
+        Score : <span class="text-blue-700">{{ $score }} / 10</span>
+    </h3>
 
     @foreach ($questions as $index => $question)
 

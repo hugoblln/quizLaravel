@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-extrabold mb-8 text-center text-gray-900">Quiz: {{ $questions[0]['category'] ?? 'Thème' }}</h1>
+    <h1 class="text-4xl font-extrabold mb-8 text-center text-gray-900">Quiz: {{ $themeName }}</h1>
+    <h2 class="text-4xl font-extrabold mb-8 text-center text-gray-900">Difficulté: {{ $difficulty }}</h2>
 
     <form action="{{route('submit')}}" method="POST" class="space-y-6">
         @csrf
