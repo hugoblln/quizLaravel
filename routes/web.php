@@ -16,9 +16,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::get('/theme/{themeId}', function($themeId, Request $request){
+    Route::get('/theme/{themeId}', function($themeId, Request $request){
 
     $themeName = $request->query('themeName');
     
@@ -32,5 +31,6 @@ Route::get('/questions/{themeId}/{difficulty}', [QuizController::class, 'questio
 Route::post('/submit', [QuizController::class, 'submit'])->name('submit');
 
 Route::get('/questions/{themeId}/{difficulty}/result', [QuizController::class, 'result'])->name('result');
+});
 
 require __DIR__.'/auth.php';

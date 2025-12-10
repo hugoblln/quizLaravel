@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Score;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class QuizController extends Controller
@@ -42,11 +44,9 @@ class QuizController extends Controller
 
         $themeId = session('themeId');
 
+        $themeName = session('themeName');
+
         $difficulty = session('difficulty');
-
-
-        var_dump($answers);
-
 
         $score = 0;
 
@@ -58,7 +58,12 @@ class QuizController extends Controller
             }
         }
 
-        var_dump($score);
+        Score::create([
+            'user_id' => Auth::id(),
+            'score' => $score,
+            'category' => $themeName,
+            'difficulty' => $difficulty
+        ]);
 
         return redirect()->route('result', ['themeId' => $themeId, 'difficulty' => $difficulty])->with(['score' => $score, 'questions' => $questions, 'answers' => $answers ]);
     }
