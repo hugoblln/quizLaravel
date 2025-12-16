@@ -1,6 +1,6 @@
 <nav class="bg-gray-800 text-white p-4 py-3 flex justify-between items-center">
     <div>
-        <p class="text-xl font-bold">CultureIQ</p>
+        <a href="{{route('index')}}" class="text-xl font-bold">CultureIQ</a>
     </div>
     <div class="flex items-center space-x-4 gap-4">
         @auth

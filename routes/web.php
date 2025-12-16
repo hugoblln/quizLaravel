@@ -35,6 +35,9 @@ Route::get('/questions/{themeId}/{difficulty}/result', [QuizController::class, '
 
 Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
 
+Route::get('/statistics/theme/{themeName}', [StatisticsController::class, 'byTheme'])->name('byTheme');
+
+
 });
 
 require __DIR__.'/auth.php';

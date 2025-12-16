@@ -12,7 +12,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
         @foreach ($categories as $category)
-            <a href="#"
+            <a href="{{route('byTheme', $category)}}"
                class="block bg-white/30 backdrop-blur-md rounded-2xl shadow-md border border-white/20
                       px-6 py-4 text-center text-gray-800 font-semibold
                       hover:bg-white/40 hover:scale-105 transition transform">

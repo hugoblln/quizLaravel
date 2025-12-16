@@ -12,4 +12,12 @@ class StatisticsController extends Controller
 
         return view('statistics/index', compact('categories'));
     }
+
+    public function byTheme(string $themeName)
+    {
+        $results = auth()->user()->scores()->where('category',$themeName)->latest()->get();
+
+        return view('statistics/byTheme', compact('results', 'themeName'));
+    }
+
 }
