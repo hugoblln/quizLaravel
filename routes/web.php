@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\StatisticsController;
 
 Route::get('/', [QuizController::class, 'themes'])->name('index');
 
@@ -31,6 +32,9 @@ Route::get('/questions/{themeId}/{difficulty}', [QuizController::class, 'questio
 Route::post('/submit', [QuizController::class, 'submit'])->name('submit');
 
 Route::get('/questions/{themeId}/{difficulty}/result', [QuizController::class, 'result'])->name('result');
+
+Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
+
 });
 
 require __DIR__.'/auth.php';

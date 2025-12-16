@@ -4,7 +4,8 @@
     </div>
     <div class="flex items-center space-x-4 gap-4">
         @auth
-            <p class="text-gray-300">{{ auth()->user()->name }}</p>
+            <a href="{{ route('statistics')}}" class="text-blue-300">mes stats</a>
+            <a href="{{route('profile.edit')}}" class="text-gray-300">{{ auth()->user()->name }}</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Se déconnecter</button>
