@@ -18,6 +18,13 @@ class QuizController extends Controller
               'difficulty' => $difficulty
         ]);
 
+        $themeName = session('themeName');
+
+          if (!isset($response->json()['results']) || empty($response->json()['results'])) {
+        return redirect()->route('theme.difficulty', ['themeId' => $themeId, 'themeName' => $themeName ])
+                         ->with('error', 'Impossible de récupérer les questions pour cette difficulté. Veuillez réessayer.');
+    }
+
         $questions = $response->json()['results'];
 
         $themeName = session('themeName');
@@ -27,13 +34,20 @@ class QuizController extends Controller
         return view('Questions/questions', compact('questions', 'themeName', 'difficulty'));
     }
 
-        public function themes()
+        public function themes(Request $request)
     {
         $response = Http::get('https://opentdb.com/api_category.php');
 
         $themes = $response->json()['trivia_categories'];
 
-        return view('welcome', compact('themes'));
+         $search = $request->query('q'); // texte de recherche depuis l'input
+    if ($search) {
+        $themes = array_filter($themes, function($theme) use ($search) {
+            return stripos($theme['name'], $search) !== false;
+        });
+    }
+
+        return view('welcome', compact('themes', 'search'));
     }
 
        public function submit(Request $request)
@@ -65,14 +79,16 @@ class QuizController extends Controller
             'difficulty' => $difficulty
         ]);
 
-        return redirect()->route('result', ['themeId' => $themeId, 'difficulty' => $difficulty])->with(['score' => $score, 'questions' => $questions, 'answers' => $answers ]);
+        session(['score' => $score, 'answers' => $answers]);
+
+        return redirect()->route('result', ['themeId' => $themeId, 'difficulty' => $difficulty]);
     }
 
     public function result(int $themeId, string $difficulty)
     {
         $score = session('score');
 
-        $questions = session('questions');
+        $questions = session('quiz_questions');
 
         $answers = session('answers');
 
